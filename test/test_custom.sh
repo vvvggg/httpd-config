@@ -22,28 +22,22 @@ function get_const() {
   # see also httpd's -D DUMP_VHOSTS -D DUMP_MODULES
 }
 
-echo testing the running instance ...
+echo testing custom stuff ...
 
-domain_name=`   get_const "domain_name"`
-document_root=` get_const "document_root"`
-#url="https://$domain_name"
-url="http://$domain_name"
-
+#domain_name=`   get_const "domain_name"`
+#document_root=` get_const "document_root"`
+##url="https://$domain_name"
+#url="http://$domain_name"
+#
 ## Test 1
-uri="/"
-req_names=( "HTTP GET ${url}${uri}" )  # test name in the output
-req_cmds=(  "curl -kfsSSL"          )  # command to run
-reqs=(      "${url}${uri}"          )  # param to concatenate the command
-req_users=( ""                      )  # user name to use similar to reqs
-req_psws=(  ""                      )  # the user password
-req_resps=( "DOCUMENT_ROOT=${document_root}.+\
-It works.+\
-</html>.+\
-<html.+\
-REQUEST_URI=/.+\
-SERVER_NAME=${domain_name}.+\
-SSL_TLS_SNI=${domain_name}"         )  # Bash Regex. Output expected to match
-
+#uri="/"
+#req_names=( "HTTP GET ${url}${uri}" )  # test name in the output
+#req_cmds=(  "curl -kfsSSL"          )  # command to run
+#reqs=(      "${url}${uri}"          )  # param to concatenate the command
+#req_users=( ""                      )  # user name to use similar to reqs
+#req_psws=(  ""                      )  # the user password
+#req_resps=( "DOCUMENT_ROOT="        )  # Bash Regex. Output expected to match
+#
 ## Test 2
 #req_names+=( "Apache configtest"  )
 #req_cmds+=(  "httpd -d .. -t -f"  )
@@ -65,7 +59,7 @@ for i in `seq 0 $(( ${#req_names[@]} - 1 ))`; do
   echo -n "  $(( i + 1 ))/${#req_names[@]} testing "
   echo -n "${req_names[$i]} ... "
 
-  response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | sort`
+  response=`${req_cmds[$i]} ${reqs[$i]} | sort 2>&1`
 
   if [[ ${response} =~ ${req_resps[$i]} ]]; then
     echo passed.
@@ -91,3 +85,4 @@ fi
 
 # passed
 exit 0
+

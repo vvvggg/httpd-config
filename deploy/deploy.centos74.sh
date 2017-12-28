@@ -1,5 +1,17 @@
 #!/bin/sh
 
+# presuming the following file hierarchy:
+#    ...
+#      |-conf
+#      |    |-Includes
+#      |    |-modules.d
+#      |    |-httpd.conf
+#      |    `-...
+#      |-test
+#      |    |-test*.sh
+#      .    `-...
+#      .                    <- we're here
+
 ## CentOS-specific
 conf_predir=/etc/httpd
 ssl_cert_dir=/etc/ssl
@@ -54,10 +66,13 @@ firewall-cmd --reload
 cat >> $conf_dir/httpd.conf <<EOD
 LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
-
-# test! and run...
-bash -c $conf_predir/test/test_install.sh &&\
-systemctl restart httpd                   &&\
-systemctl status httpd                    &&\
-bash -c $conf_predir/test/test_running.sh
 ## /CentOS-specific
+
+# test/run/test
+../test/test.sh
+
+
+
+
+
+
