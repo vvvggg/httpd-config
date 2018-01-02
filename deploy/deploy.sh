@@ -75,6 +75,7 @@ case $os in
   ubuntu)
     apt-get -y install apache2 libapache2-mod-fcgid git bash curl
     #systemctl enable httpd
+  ;;
   freebsd)
     pkg -y install apache24 ap24-mod_fcgid git bash curl
     echo 'apache24_enable="YES"' >> /etc/rc.conf
@@ -120,4 +121,4 @@ esac
 ## /post-scripts
 
 # test/run/test
-../test/test.sh --os=${os}
+../test/test.sh
