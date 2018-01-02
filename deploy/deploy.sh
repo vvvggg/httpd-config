@@ -87,14 +87,16 @@ case $os in
 esac
 
 # config dir
-mv $conf_predir $conf_predir.ORIG
-mkdir -p $conf_predir
+rm -rf "$conf_predir.ORIG"
+mv "$conf_predir" "$conf_predir.ORIG"
+mkdir -p "$conf_predir"
 
 # get the tested template config
 git clone https://github.com/vvvggg/httpd-config $conf_predir/
 
 mkdir -pm 770 $log_dir
 chgrp $apache_group $log_dir
+chmod g+rwx $log_dir
 
 # generate self-signed cert
 openssl genrsa -out $ssl_key 4096
@@ -113,12 +115,13 @@ cp $conf_predir/test/index.html $document_root/
 case $os in
   centos)
     # fu^$#&% systemd penetration, CentOS
-    cat >> $conf_dir/httpd.conf <<-EOD
-      LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
-    EOD
+    cat >> $conf_dir/httpd.conf <<EOD
+LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
+EOD
   ;;
 esac
 ## /post-scripts
 
 # test/run/test
-../test/test.sh
+cd ${conf_predir}/test
+./test.sh
