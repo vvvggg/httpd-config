@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
 # presuming the following file hierarchy:
 #    ...
 #      |-conf
@@ -59,22 +61,24 @@ SSL_TLS_SNI=${domain_name}"         )  # Bash Regex. Output expected to match
 
 err_flag=false
 
-# test'em all
-for i in `seq 0 $(( ${#req_names[@]} - 1 ))`; do
+# test'em all if $req_names set
+if [[ -n ${req_names+x} ]]; then
+  for i in `seq 0 $(( ${#req_names[@]} - 1 ))`; do
 
-  echo -n "  $(( i + 1 ))/${#req_names[@]} testing "
-  echo -n "${req_names[$i]} ... "
+    echo -n "  $(( i + 1 ))/${#req_names[@]} testing "
+    echo -n "${req_names[$i]} ... "
 
-  response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | sort`
+    response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | sort`
 
-  if [[ ${response} =~ ${req_resps[$i]} ]]; then
-    echo passed.
-  else
-    echo failed.
-    err_flag=true
-  fi
+    if [[ ${response} =~ ${req_resps[$i]} ]]; then
+      echo passed.
+    else
+      echo failed.
+      err_flag=true
+    fi
 
-done
+  done
+fi
 echo done.
 
 # clean up test remnants

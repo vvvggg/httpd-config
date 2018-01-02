@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
 # full test
 echo '>>> '`date "+%Y-%m-%d %H:%M:%S %Z"`
 ./test_install.sh        &&\
@@ -7,5 +9,6 @@ echo '>>> '`date "+%Y-%m-%d %H:%M:%S %Z"`
 systemctl restart httpd  &&\
 ## /CentOS-specific
 ./test_running.sh        &&\
-./test_custom.sh
+./test_custom.sh         &&\
+echo SUCCESS.
 echo '<<< '`date "+%Y-%m-%d %H:%M:%S %Z"`
