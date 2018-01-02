@@ -92,7 +92,7 @@ mv "$conf_predir" "$conf_predir.ORIG"
 mkdir -p "$conf_predir"
 
 # get the tested template config
-git clone https://github.com/vvvggg/httpd-config $conf_predir/
+git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
 
 mkdir -pm 770 $log_dir
 chgrp $apache_group $log_dir
