@@ -28,7 +28,7 @@ apache_group=apache
 log_dir=/var/log/httpd
 ssl_key=$ssl_cert_dir/privkey.pem
 ssl_cert=$ssl_cert_dir/$domain_name.pem
-document_root=/var/www/virtual/$domain_name
+document_root=/var/www/html
 ## /Configuration defaults
 
 
