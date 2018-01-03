@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -Eeuo pipefail
+set -Eeuxo pipefail
 
 # presuming the following file hierarchy:
 #    ...
@@ -19,16 +19,16 @@ set -Eeuo pipefail
 
 ## Configuration defaults based on those for CentOS 7
 conf_predir=/etc/httpd
-# these consts below should match httpd.conf ones
-ssl_cert_dir=/etc/ssl
-conf_dir=$conf_predir/conf
 conf_file=httpd.conf
+# these consts below should match httpd.conf ones
+conf_dir=$conf_predir/conf
 domain_name=localhost
 apache_user=apache
 apache_group=apache
 server_admin="webmaster@${domain_name}"
 mod_dir=/usr/lib64/httpd/modules
 log_dir=/var/log/httpd
+ssl_cert_dir=/etc/ssl
 ssl_key=$ssl_cert_dir/privkey.pem
 ssl_cert=$ssl_cert_dir/$domain_name.pem
 document_root=/var/www/html
@@ -51,7 +51,7 @@ case `uname -o; cat /etc/os-release` in
     os="ubuntu"
     conf_predir=/etc/apache2
     conf_file=apache2.conf
-    ln -s $conf_dir/httpd.conf $conf_predir/$conf_file
+    ln -fs $conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www-data
     apache_group=www-data
     mod_dir=/usr/lib/apache2/modules
@@ -61,7 +61,7 @@ case `uname -o; cat /etc/os-release` in
     os="freebsd"
     conf_predir=/usr/local/etc/apache24
     conf_file=httpd.conf
-    ln -s $conf_dir/httpd.conf $conf_predir/$conf_file
+    ln -fs $conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www
     apache_group=www
     mod_dir=/usr/local/libexec/apache24
@@ -104,22 +104,28 @@ mkdir -p "$conf_predir"
 # get the tested template config
 git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
 
-# httpd.conf configuration definitions substitution
+# TODO: httpd.conf configuration definitions substitution
 
 
 mkdir -pm 770 $log_dir
 chgrp $apache_group $log_dir
 chmod g+rwx $log_dir
 
-# generate self-signed cert
-#openssl genrsa -out $ssl_key 4096
+# generate self-signed cert (and the orivate key)
+# RSA:   -newkey rsa:4096
+# ECDSA: -newkey ec -pkeyopt ec_paramgen_curve:prime256v1
 # see man req(1) for details
-openssl req                                                                    \
-# -newkey ec -pkeyopt ec_paramgen_curve:prime256v1                             \
-  -newkey rsa:4096                                                             \
-  -keyout $ssl_key                                                             \
-  -new    -x509 -days 1095 -nodes                                              \
-  -subj   "/C=XX/ST=/L=/O=/OU=/CN=${domain_name}/emailAddress=${server_admin}" \
+openssl req                        \
+  -newkey rsa:4096                 \
+  -keyout $ssl_key                 \
+  -new    -x509 -days 1095 -nodes  \
+  -subj   "/C=XX\
+/ST=\
+/L=\
+/O=\
+/OU=\
+/CN=${domain_name}\
+/emailAddress=${server_admin}"     \
   -out    $ssl_cert
 chmod 600 $ssl_key $ssl_cert
 
@@ -134,6 +140,7 @@ cp $conf_predir/test/index.html $document_root/
 case $os in
   centos)
     # fu^$#&% systemd penetration, CentOS
+    # TODO: check if the LoadModule already added
     cat >> $conf_dir/httpd.conf <<EOD
 LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
