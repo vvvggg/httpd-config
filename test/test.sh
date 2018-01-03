@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -Eeuo pipefail
+#set -Eeuo pipefail
+set -Eeu
 
 function restart_httpd() {
   echo restarting httpd...

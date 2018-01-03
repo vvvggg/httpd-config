@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -Eeuo pipefail
+#set -Eeuo pipefail
+set -Eeu
 
 # presuming the following file hierarchy:
 #    ...
