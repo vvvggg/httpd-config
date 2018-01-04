@@ -42,11 +42,6 @@ case `uname -o; cat /etc/os-release` in
   *CentOS*)
     # $os var will be used later
     os="centos"
-    conf_predir=/etc/httpd
-    apache_user=apache
-    apache_group=apache
-    mod_dir=/usr/lib64/httpd/modules
-    log_dir=/var/log/httpd
   ;;
   *Ubuntu*)
     os="ubuntu"
@@ -126,11 +121,9 @@ s%^(\s*Define\s+ssl_cert\s+).*%\1\"${ssl_cert}\"%                         \
 " $conf_predir/$conf_dir/httpd.conf
 
 # log dir
-if [[ ! -d $log_dir ]]; then
-  mkdir -pm 770 $log_dir
-  chgrp $apache_group $log_dir
-  chmod g+rwx $log_dir
-fi
+mkdir -pm 770 $log_dir
+chgrp $apache_group $log_dir
+chmod g+rwx $log_dir
 
 # generate self-signed cert (and the orivate key)
 # RSA:   -newkey rsa:4096
@@ -175,8 +168,6 @@ EOD
     fi
     chown $apache_user:adm $log_dir
     chmod g=rwx $log_dir
-    #mkdir -p /var/lock/apache2
-    #chown $apache_user /var/lock/apache2
   ;;
 esac
 ## /post-scripts
