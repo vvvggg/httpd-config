@@ -33,12 +33,12 @@ document_root=` get_const "document_root"`
 url="http://$domain_name"
 
 ## Test 1
-req_names+=( "Apache is running"                         )
-req_cmds+=(  "[[ `pgrep -c apache2` > 1 ]] && echo yes"  )
-reqs+=(      "$config_file_httpd"                        )
-req_users+=( ""                                          )
-req_psws+=(  ""                                          )
-req_resps+=( "yes"                                       )
+req_names+=( "Apache is running"             )
+req_cmds+=(  "[[ `pgrep -c apache2` > 1 ]]"  )
+reqs+=(      " && echo yes"                  )
+req_users+=( ""                              )
+req_psws+=(  ""                              )
+req_resps+=( "yes"                           )
 
 ## Test 2
 uri="/"
