@@ -19,6 +19,7 @@ set -Eeuxo pipefail
 
 ## Configuration defaults based on those for CentOS 7
 httpd_cmd=httpd
+# directory containing all the conf/, deploy/, test/, ... dirs
 conf_predir=/etc/httpd
 conf_file=httpd.conf
 # these consts below should match httpd.conf ones
@@ -40,7 +41,6 @@ case `uname -o; cat /etc/os-release` in
   *CentOS*)
     # $os var will be used later
     os="centos"
-    # directory containing all the conf/, deploy/, test/, ... dirs
     conf_predir=/etc/httpd
     apache_user=apache
     apache_group=apache
@@ -165,8 +165,7 @@ LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
   ;;
   ubuntu)
-    mkdir $conf_predir/envvars
-    touch $conf_predir/envvars/APACHE_PID_FILE
+    $conf_predir/envvars < $conf_predir/deploy/envvars.ubuntu
   ;;
 esac
 ## /post-scripts
