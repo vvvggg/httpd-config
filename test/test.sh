@@ -11,7 +11,10 @@ function restart_httpd() {
       systemctl restart httpd
     ;;
     *Ubuntu*)
-      systemctl restart apache2
+      # fu&^#%( systemd stuff is still buggy here...
+      #systemctl restart apache2
+      apache2 -k stop  || pkill apache2
+      apache2 -k start
     ;;
     *FreeBSD*)
       service apache24 restart
