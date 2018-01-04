@@ -165,7 +165,11 @@ LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
   ;;
   ubuntu)
-    $conf_predir/envvars < $conf_predir/deploy/envvars.ubuntu
+    if [[ -f $conf_predir.ORIG/envvars ]]; then
+      cp -af $conf_predir.ORIG/envvars $conf_predir/envvars
+    else
+      cp -f  $conf_predir/deploy/envvars.ubuntu $conf_predir/envvars
+    fi
   ;;
 esac
 ## /post-scripts
