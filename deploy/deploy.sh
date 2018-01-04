@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -Eeuxo pipefail
+umask 022
 
 # presuming the following file hierarchy:
 #    ...
@@ -125,9 +126,11 @@ s%^(\s*Define\s+ssl_cert\s+).*%\1\"${ssl_cert}\"%                         \
 " $conf_predir/$conf_dir/httpd.conf
 
 # log dir
-mkdir -pm 770 $log_dir
-chgrp $apache_group $log_dir
-chmod g+rwx $log_dir
+if [[ ! -d $log_dir ]]; then
+  mkdir -pm 770 $log_dir
+  chgrp $apache_group $log_dir
+  chmod g+rwx $log_dir
+fi
 
 # generate self-signed cert (and the orivate key)
 # RSA:   -newkey rsa:4096
@@ -170,6 +173,10 @@ EOD
     else
       cp -f  $conf_predir/deploy/envvars.ubuntu $conf_predir/envvars
     fi
+    chown $apache_user:adm $log_dir
+    chmod g=rwx $log_dir
+    #mkdir -p /var/lock/apache2
+    #chown $apache_user /var/lock/apache2
   ;;
 esac
 ## /post-scripts
