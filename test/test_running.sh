@@ -33,6 +33,14 @@ document_root=` get_const "document_root"`
 url="http://$domain_name"
 
 ## Test 1
+req_names+=( "Apache is running"                         )
+req_cmds+=(  "[[ `pgrep -c apache2` > 1 ]] && echo yes"  )
+reqs+=(      "$config_file_httpd"                        )
+req_users+=( ""                                          )
+req_psws+=(  ""                                          )
+req_resps+=( "yes"                                       )
+
+## Test 2
 uri="/"
 req_names=( "HTTP GET ${url}${uri}" )  # test name in the output
 req_cmds=(  "curl -kfsSSL"          )  # command to run
@@ -47,7 +55,7 @@ REQUEST_URI=/.+\
 SERVER_NAME=${domain_name}.+\
 SSL_TLS_SNI=${domain_name}"         )  # Bash Regex. Output expected to match
 
-## Test 2
+## Test 3
 #req_names+=( "Apache configtest"  )
 #req_cmds+=(  "httpd -d .. -t -f"  )
 #reqs+=(      "$config_file_httpd" )
