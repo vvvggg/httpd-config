@@ -60,8 +60,8 @@ err_flag=false
 if [[ -n ${req_names+x} ]]; then
   for i in `seq 0 $(( ${#req_names[@]} - 1 ))`; do
 
-    echo -n "  $(( i + 1 ))/${#req_names[@]} testing "
-    echo -n "${req_names[$i]} ... "
+    echo -n "  $(( i + 1 ))/${#req_names[@]} test "
+    echo -n "${req_names[$i]}... "
 
     response=`${req_cmds[$i]} ${reqs[$i]} | sort 2>&1`
 

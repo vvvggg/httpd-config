@@ -33,12 +33,12 @@ document_root=` get_const "document_root"`
 url="http://$domain_name"
 
 ## Test 1
-req_names=( "Apache is running"             )
-req_cmds=(  "[[ `pgrep -c apache2` > 1 ]]"  )
-reqs=(      " && echo yes"                  )
-req_users=( ""                              )
-req_psws=(  ""                              )
-req_resps=( "yes"                           )
+req_names=( "Apache is running"       )
+req_cmds=(  "pgrep -c"                )  # number of
+reqs=(      "(httpd)|(apache2)"       )  # `apache2' processes
+req_users=( ""                        )
+req_psws=(  ""                        )
+req_resps=( "^([1-9][0-9]+)|([2-9])"  )  # >1 (or 10+)
 
 ## Test 2
 uri="/"
@@ -74,8 +74,8 @@ err_flag=false
 if [[ -n ${req_names+x} ]]; then
   for i in `seq 0 $(( ${#req_names[@]} - 1 ))`; do
 
-    echo -n "  $(( i + 1 ))/${#req_names[@]} testing "
-    echo -n "${req_names[$i]} ... "
+    echo -n "  $(( i + 1 ))/${#req_names[@]} test "
+    echo -n "${req_names[$i]}... "
 
     response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | sort`
 
