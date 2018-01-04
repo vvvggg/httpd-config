@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -Eeuxo pipefail
 
@@ -21,17 +21,16 @@ set -Eeuxo pipefail
 conf_predir=/etc/httpd
 conf_file=httpd.conf
 # these consts below should match httpd.conf ones
-conf_dir=$conf_predir/conf
-domain_name=localhost
+conf_dir=conf
+log_dir=/var/log/httpd
 apache_user=apache
 apache_group=apache
-server_admin="webmaster@${domain_name}"
 mod_dir=/usr/lib64/httpd/modules
-log_dir=/var/log/httpd
-ssl_cert_dir=/etc/ssl
-ssl_key=$ssl_cert_dir/privkey.pem
-ssl_cert=$ssl_cert_dir/$domain_name.pem
+domain_name=localhost
+server_admin="webmaster@${domain_name}"
 document_root=/var/www/html
+ssl_key=/etc/ssl/privkey.pem
+ssl_cert=/etc/ssl/$domain_name.pem
 ## /Configuration defaults
 
 
@@ -51,7 +50,7 @@ case `uname -o; cat /etc/os-release` in
     os="ubuntu"
     conf_predir=/etc/apache2
     conf_file=apache2.conf
-    ln -fs $conf_dir/httpd.conf $conf_predir/$conf_file
+    ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www-data
     apache_group=www-data
     mod_dir=/usr/lib/apache2/modules
@@ -61,7 +60,7 @@ case `uname -o; cat /etc/os-release` in
     os="freebsd"
     conf_predir=/usr/local/etc/apache24
     conf_file=httpd.conf
-    ln -fs $conf_dir/httpd.conf $conf_predir/$conf_file
+    ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www
     apache_group=www
     mod_dir=/usr/local/libexec/apache24
@@ -104,9 +103,23 @@ mkdir -p "$conf_predir"
 # get the tested template config
 git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
 
-# TODO: httpd.conf configuration definitions substitution
+# httpd.conf configuration definitions substitution
+sed -i.ORIG -r -e "                                                       \
+s%^(\s*ServerRoot\s+).*%\1\"${conf_predir}\"%;                            \
+s%^(\s*Define\s+conf_dir\s+).*%\1\"${conf_dir}\"%;                        \
+s%^(\s*Define\s+log_dir\s+).*%\1\"${log_dir}\"%;                          \
+s%^(\s*Define\s+server_incdir\s+).*%\1\"\${conf_dir}/Includes/server\"%;  \
+s%^(\s*Define\s+apache_user\s+).*%\1\"${apache_user}\"%;                  \
+s%^(\s*Define\s+apache_group\s+).*%\1\"${apache_group}\"%;                \
+s%^(\s*Define\s+mod_dir\s+).*%\1\"${mod_dir}\"%;                          \
+s%^(\s*Define\s+domain_name\s+).*%\1\"${domain_name}\"%;                  \
+s%^(\s*Define\s+server_admin\s+).*%\1\"${server_admin}\"%;                \
+s%^(\s*Define\s+document_root\s+).*%\1\"${document_root}\"%;              \
+s%^(\s*Define\s+ssl_key\s+).*%\1\"${ssl_key}\"%;                          \
+s%^(\s*Define\s+ssl_cert\s+).*%\1\"${ssl_cert}\"%                         \
+" $conf_predir/$conf_dir/httpd.conf
 
-
+# log dir
 mkdir -pm 770 $log_dir
 chgrp $apache_group $log_dir
 chmod g+rwx $log_dir
@@ -140,8 +153,9 @@ cp $conf_predir/test/index.html $document_root/
 case $os in
   centos)
     # fu^$#&% systemd penetration, CentOS
-    # TODO: check if the LoadModule already added
-    cat >> $conf_dir/httpd.conf <<EOD
+    egrep -c '^\s*LoadModule\s+systemd_module' \
+      $conf_predir/$conf_dir/httpd.conf > /dev/null ||\
+    cat >> $conf_predir/$conf_dir/httpd.conf <<EOD
 LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
   ;;
