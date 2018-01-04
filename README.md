@@ -9,6 +9,6 @@ Some well-tested configuration examples/snippets included.
 
 #Tested with Apache httpd 2.4.27 on FreeBSD 11.1-RELEASE-p6
 
-#Tested with Apache httpd 2.4.6 on CentOS 7.4
+Successful test with Apache httpd 2.4.18 on Ubuntu 16.04.3 LTS.
 
-Last successful test with Apache httpd 2.4.18 on Ubuntu 16.04.3 LTS.
+Last successful test with Apache httpd 2.4.6 on CentOS 7.4
