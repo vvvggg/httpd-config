@@ -147,7 +147,7 @@ openssl req                        \
 /OU=\
 /CN=${domain_name}\
 /emailAddress=${server_admin}"     \
-  -out    $ssl_cert
+  -out    $ssl_cert                2 > /dev/null
 chmod 600 $ssl_key $ssl_cert
 
 # web dir
