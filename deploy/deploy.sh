@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -Eeuxo pipefail
+set -Eeuo pipefail
 umask 022
 
 # presuming the following file hierarchy:

@@ -16,7 +16,7 @@ function restart_httpd() {
       apache2 -k stop || pkill   apache2
       sleep 1
       pkill   apache2 || apache2 -k start
-      sleep 1
+      sleep 2
     ;;
     *FreeBSD*)
       service apache24 restart
