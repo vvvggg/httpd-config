@@ -33,21 +33,21 @@ document_root=` get_const "document_root"`
 url="http://$domain_name"
 
 ## Test 1
-req_names+=( "Apache is running"             )
-req_cmds+=(  "[[ `pgrep -c apache2` > 1 ]]"  )
-reqs+=(      " && echo yes"                  )
-req_users+=( ""                              )
-req_psws+=(  ""                              )
-req_resps+=( "yes"                           )
+req_names=( "Apache is running"             )
+req_cmds=(  "[[ `pgrep -c apache2` > 1 ]]"  )
+reqs=(      " && echo yes"                  )
+req_users=( ""                              )
+req_psws=(  ""                              )
+req_resps=( "yes"                           )
 
 ## Test 2
 uri="/"
-req_names=( "HTTP GET ${url}${uri}" )  # test name in the output
-req_cmds=(  "curl -kfsSSL"          )  # command to run
-reqs=(      "${url}${uri}"          )  # param to concatenate the command
-req_users=( ""                      )  # user name to use similar to reqs
-req_psws=(  ""                      )  # the user password
-req_resps=( "DOCUMENT_ROOT=${document_root}.+\
+req_names+=( "HTTP GET ${url}${uri}" )  # test name in the output
+req_cmds+=(  "curl -kfsSSL"          )  # command to run
+reqs+=(      "${url}${uri}"          )  # param to concatenate the command
+req_users+=( ""                      )  # user name to use similar to reqs
+req_psws+=(  ""                      )  # the user password
+req_resps+=( "DOCUMENT_ROOT=${document_root}.+\
 It works.+\
 </html>.+\
 <html.+\
