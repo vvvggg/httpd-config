@@ -18,9 +18,9 @@ set -Eeuxo pipefail
 
 
 ## Configuration defaults based on those for CentOS 7
+httpd_cmd=httpd
 conf_predir=/etc/httpd
 conf_file=httpd.conf
-httpd_cmd=httpd
 # these consts below should match httpd.conf ones
 conf_dir=conf
 log_dir=/var/log/httpd
@@ -35,7 +35,7 @@ ssl_cert=/etc/ssl/$domain_name.pem
 ## /Configuration defaults
 
 
-# Check OS type/distro
+# Check OS type/distro and update all the consts above accordingly
 case `uname -o; cat /etc/os-release` in
   *CentOS*)
     # $os var will be used later
@@ -52,7 +52,6 @@ case `uname -o; cat /etc/os-release` in
     httpd_cmd=apache2
     conf_predir=/etc/apache2
     conf_file=apache2.conf
-    ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www-data
     apache_group=www-data
     mod_dir=/usr/lib/apache2/modules
@@ -62,7 +61,6 @@ case `uname -o; cat /etc/os-release` in
     os="freebsd"
     conf_predir=/usr/local/etc/apache24
     conf_file=httpd.conf
-    ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
     apache_user=www
     apache_group=www
     mod_dir=/usr/local/libexec/apache24
@@ -85,7 +83,9 @@ case $os in
   ;;
   ubuntu)
     apt-get -y install apache2 libapache2-mod-fcgid git bash curl
-    #systemctl enable httpd
+    # Ubuntu has `apache2' binary instead of `httpd', but
+    # httpd is needed to be ok for our test scripts
+    ln -fs `which apache2` `dirname \`which apache2\``/httpd
   ;;
   freebsd)
     pkg -y install apache24 ap24-mod_fcgid git bash curl
@@ -104,6 +104,9 @@ mkdir -p "$conf_predir"
 
 # get the tested template config
 git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
+
+# make config location distro-compatible (no needed for CentOS though)
+ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
 
 # httpd.conf configuration definitions substitution
 sed -i.ORIG -r -e "                                                       \
@@ -161,9 +164,13 @@ case $os in
 LoadModule  systemd_module  \${mod_dir}/mod_systemd.so
 EOD
   ;;
+  ubuntu)
+    mkdir $conf_predir/envvars
+    touch $conf_predir/envvars/APACHE_PID_FILE
+  ;;
 esac
 ## /post-scripts
 
 # test/run/test
 cd ${conf_predir}/test
-./test.sh --httpd_cmd=${httpd_cmd}
+./test.sh
