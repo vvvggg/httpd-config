@@ -20,6 +20,7 @@ set -Eeuxo pipefail
 ## Configuration defaults based on those for CentOS 7
 conf_predir=/etc/httpd
 conf_file=httpd.conf
+httpd_cmd=httpd
 # these consts below should match httpd.conf ones
 conf_dir=conf
 log_dir=/var/log/httpd
@@ -48,6 +49,7 @@ case `uname -o; cat /etc/os-release` in
   ;;
   *Ubuntu*)
     os="ubuntu"
+    httpd_cmd=apache2
     conf_predir=/etc/apache2
     conf_file=apache2.conf
     ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
@@ -164,4 +166,4 @@ esac
 
 # test/run/test
 cd ${conf_predir}/test
-./test.sh
+./test.sh --httpd_cmd=${httpd_cmd}
