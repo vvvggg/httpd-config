@@ -14,9 +14,9 @@ function restart_httpd() {
       # fu&^#%( systemd stuff is still buggy here...
       #systemctl restart apache2
       apache2 -k stop || pkill   apache2
-      sleep 1
+      sleep 5
       pkill   apache2 || apache2 -k start
-      sleep 2
+      sleep 5
     ;;
     *FreeBSD*)
       service apache24 restart
