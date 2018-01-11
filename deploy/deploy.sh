@@ -36,6 +36,7 @@ ssl_key=/etc/ssl/privkey.pem
 ssl_cert=/etc/ssl/$domain_name.pem
 ## /Configuration defaults
 
+echo ">>> deploy.sh"
 
 # Check OS type/distro and update all the consts above accordingly
 case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
@@ -175,3 +176,5 @@ esac
 # test/run/test
 cd ${conf_predir}/test
 ./test.sh
+
+echo "<<< deploy.sh"
