@@ -6,7 +6,7 @@ set -Eeu
 function restart_httpd() {
   echo restarting httpd...
   # Check OS type/distro
-  case `uname -o; cat /etc/os-release` in
+  case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
     *CentOS*)
       systemctl restart httpd
     ;;
