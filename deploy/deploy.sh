@@ -84,7 +84,7 @@ case $os in
     ln -fs `which apache2` `dirname \`which apache2\``/httpd
   ;;
   freebsd)
-    pkg -y install apache24 ap24-mod_fcgid git bash curl
+    pkg install -y apache24 ap24-mod_fcgid git bash curl
     echo 'apache24_enable="YES"' >> /etc/rc.conf
   ;;
   *)
