@@ -38,7 +38,7 @@ ssl_cert=/etc/ssl/$domain_name.pem
 
 
 # Check OS type/distro and update all the consts above accordingly
-case `uname -o; cat /etc/os-release` in
+case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
   *CentOS*)
     # $os var will be used later
     os="centos"
