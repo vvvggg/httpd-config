@@ -19,7 +19,7 @@ function get_const() {
   # get constant definition given by name (from the config)
   echo `
     httpd -S                   |\
-    egrep 'Define:\s*'$1'='    |\
+    egrep 'Define:[[:space:]]*'$1'='    |\
     awk -F"$1=" "{print \\$2}"
   `
   # see also httpd's -D DUMP_VHOSTS -D DUMP_MODULES

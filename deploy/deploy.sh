@@ -106,19 +106,19 @@ git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
 ln -fs $conf_predir/$conf_dir/httpd.conf $conf_predir/$conf_file
 
 # httpd.conf configuration definitions substitution
-sed -i.ORIG -r -e "                                                       \
-s%^(\s*ServerRoot\s+).*%\1\"${conf_predir}\"%;                            \
-s%^(\s*Define\s+conf_dir\s+).*%\1\"${conf_dir}\"%;                        \
-s%^(\s*Define\s+log_dir\s+).*%\1\"${log_dir}\"%;                          \
-s%^(\s*Define\s+server_incdir\s+).*%\1\"\${conf_dir}/Includes/server\"%;  \
-s%^(\s*Define\s+apache_user\s+).*%\1\"${apache_user}\"%;                  \
-s%^(\s*Define\s+apache_group\s+).*%\1\"${apache_group}\"%;                \
-s%^(\s*Define\s+mod_dir\s+).*%\1\"${mod_dir}\"%;                          \
-s%^(\s*Define\s+domain_name\s+).*%\1\"${domain_name}\"%;                  \
-s%^(\s*Define\s+server_admin\s+).*%\1\"${server_admin}\"%;                \
-s%^(\s*Define\s+document_root\s+).*%\1\"${document_root}\"%;              \
-s%^(\s*Define\s+ssl_key\s+).*%\1\"${ssl_key}\"%;                          \
-s%^(\s*Define\s+ssl_cert\s+).*%\1\"${ssl_cert}\"%                         \
+sed -i.ORIG -r -e "                                                                                  \
+s%^([[:space:]]*ServerRoot[[:space:]]+).*%\1\"${conf_predir}\"%;                                     \
+s%^([[:space:]]*Define[[:space:]]+conf_dir[[:space:]]+).*%\1\"${conf_dir}\"%;                        \
+s%^([[:space:]]*Define[[:space:]]+log_dir[[:space:]]+).*%\1\"${log_dir}\"%;                          \
+s%^([[:space:]]*Define[[:space:]]+server_incdir[[:space:]]+).*%\1\"\${conf_dir}/Includes/server\"%;  \
+s%^([[:space:]]*Define[[:space:]]+apache_user[[:space:]]+).*%\1\"${apache_user}\"%;                  \
+s%^([[:space:]]*Define[[:space:]]+apache_group[[:space:]]+).*%\1\"${apache_group}\"%;                \
+s%^([[:space:]]*Define[[:space:]]+mod_dir[[:space:]]+).*%\1\"${mod_dir}\"%;                          \
+s%^([[:space:]]*Define[[:space:]]+domain_name[[:space:]]+).*%\1\"${domain_name}\"%;                  \
+s%^([[:space:]]*Define[[:space:]]+server_admin[[:space:]]+).*%\1\"${server_admin}\"%;                \
+s%^([[:space:]]*Define[[:space:]]+document_root[[:space:]]+).*%\1\"${document_root}\"%;              \
+s%^([[:space:]]*Define[[:space:]]+ssl_key[[:space:]]+).*%\1\"${ssl_key}\"%;                          \
+s%^([[:space:]]*Define[[:space:]]+ssl_cert[[:space:]]+).*%\1\"${ssl_cert}\"%                         \
 " $conf_predir/$conf_dir/httpd.conf
 
 # log dir
@@ -154,8 +154,8 @@ cp $conf_predir/test/index.html $document_root/
 # post-scripts
 case $os in
   centos)
-    # fu^$#&% systemd penetration, CentOS
-    egrep -c '^\s*LoadModule\s+systemd_module' \
+    # fu^$#&% systemd penetration
+    egrep -c '^[[:space:]]*LoadModule[[:space:]]+systemd_module' \
       $conf_predir/$conf_dir/httpd.conf > /dev/null ||\
     cat >> $conf_predir/$conf_dir/httpd.conf <<EOD
 LoadModule  systemd_module  \${mod_dir}/mod_systemd.so

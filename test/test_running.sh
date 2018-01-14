@@ -18,8 +18,8 @@ set -Eeu
 function get_const() {
   # get constant definition given by name (from the config)
   echo `
-    httpd -S                   |\
-    egrep 'Define:\s*'$1'='    |\
+    httpd -S                            |\
+    egrep 'Define:[[:space:]]*'$1'='    |\
     awk -F"$1=" "{print \\$2}"
   `
   # see also httpd's -D DUMP_VHOSTS -D DUMP_MODULES
@@ -27,18 +27,22 @@ function get_const() {
 
 echo testing the running instance ...
 
-domain_name=`   get_const "domain_name"`
-document_root=` get_const "document_root"`
+domain_name=`   get_const "domain_name"   `
+document_root=` get_const "document_root" `
 #url="https://$domain_name"
 url="http://$domain_name"
 
 ## Test 1
-req_names=( "Apache is running"       )
-req_cmds=(  "pgrep -c"                )  # number of
-reqs=(      "(httpd)|(apache2)"       )  # `apache2' processes
-req_users=( ""                        )
-req_psws=(  ""                        )
-req_resps=( "^([1-9][0-9]+)|([2-9])"  )  # >1 (or 10+)
+function get_apache_proc_num() {
+  # number of running `apache2' processes
+  pgrep "(httpd)|(apache2)" | wc -l
+}
+req_names=( "Apache is running"                  )
+req_cmds=(  "get_apache_proc_num"                )
+reqs=(      ""                                   )
+req_users=( ""                                   )
+req_psws=(  ""                                   )
+req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
 
 ## Test 2
 uri="/"
@@ -47,13 +51,14 @@ req_cmds+=(  "curl -kfsSSL"          )  # command to run
 reqs+=(      "${url}${uri}"          )  # param to concatenate the command
 req_users+=( ""                      )  # user name to use similar to reqs
 req_psws+=(  ""                      )  # the user password
-req_resps+=( "DOCUMENT_ROOT=${document_root}.+\
-It works.+\
+req_resps+=( "It works.+\
 </html>.+\
 <html.+\
+DOCUMENT_ROOT=${document_root}.+\
 REQUEST_URI=/.+\
 SERVER_NAME=${domain_name}.+\
-SSL_TLS_SNI=${domain_name}"         )  # Bash Regex. Output expected to match
+SSL_TLS_SNI=${domain_name}"          )  # Bash Regex. Output expected to match
+
 
 ## Test 3
 #req_names+=( "Apache configtest"  )
@@ -66,8 +71,7 @@ SSL_TLS_SNI=${domain_name}"         )  # Bash Regex. Output expected to match
 
 
 
-### main logic, do not change
-
+### main logic, do not change unless absolutely sure
 err_flag=false
 
 # test'em all if $req_names set
@@ -77,7 +81,7 @@ if [[ -n ${req_names+x} ]]; then
     echo -n "  $(( i + 1 ))/${#req_names[@]} test "
     echo -n "${req_names[$i]}... "
 
-    response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | sort`
+    response=`${req_cmds[$i]} ${reqs[$i]} 2>&1 | LC_ALL=C sort`
 
     if [[ ${response} =~ ${req_resps[$i]} ]]; then
       echo passed.
