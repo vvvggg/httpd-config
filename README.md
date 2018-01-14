@@ -15,7 +15,9 @@ Some well-tested configuration examples/snippets included.
   4. Place at `$document_root` whatever you want
   5. Enjoy or rise a GitHub issue
 
-**deploy.sh generates plain private key and self-signed x509 SSL certificate at /etc/ssl by default**
+**deploy.sh generates plain private key and 'blank' self-signed x.509 SSL certificate at /etc/ssl by default**
+
+Backups the previous configuration with `.ORIG` suffix.
 
 Main configuration parameters (aka constants) are described at `conf/httpd.conf`.
 
