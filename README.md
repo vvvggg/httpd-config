@@ -15,7 +15,7 @@ Some well-tested configuration examples/snippets are included. FCGId module is i
   4. Place at `$document_root` whatever you want
   5. Enjoy or rise a GitHub issue
 
-**deploy.sh generates plain private key and 'blank' self-signed x.509 SSL certificate at /etc/ssl by default**
+**deploy.sh generates a PLAIN private key and 'blank' 3-year self-signed X.509 SSL certificate at /etc/ssl by default**
 
 Backups the previous configuration with `.ORIG` suffix.
 
