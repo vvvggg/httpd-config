@@ -5,7 +5,7 @@ Created especially for quick and pre-configured Apache deployment across Linux/F
 
 By default includes two virtual hosts with common `DocumentRoot` directory: HTTP Virtualhost at `localhost:80` with unconditional redirect to the second 'work' HTTPS Virtualhost at `localhost:443`.
 
-Some well-tested configuration examples/snippets included.
+Some well-tested configuration examples/snippets are included. FCGId module is included as well.
 
 ## Deployment
 
