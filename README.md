@@ -9,7 +9,7 @@ Some well-tested configuration examples/snippets are included. FCGId module is i
 
 ## Deployment
 
-  1. Download deployment script: `curl -fssL https://raw.githubusercontent.com/vvvggg/httpd-config/devel/deploy/deploy.sh > /tmp/deploy.sh`
+  1. Download deployment script: `curl -fssL https://raw.githubusercontent.com/vvvggg/httpd-config/master/deploy/deploy.sh > /tmp/deploy.sh`
   2. Update `/tmp/deploy.sh` Configuration defaults up to your needs: `domain_name`, `server_admin`, `document_root`, maybe `ssl_*` as well.
   3. Run `sudo bash /tmp/deploy.sh`
   4. Place at `$document_root` whatever you want
