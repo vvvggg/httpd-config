@@ -152,7 +152,7 @@ mv "$conf_predir" "${conf_predir}.ORIG"
 mkdir -p "$conf_predir"
 
 # get the tested default httpd-config release
-git clone -b devel https://github.com/vvvggg/httpd-config $conf_predir/
+git clone https://github.com/vvvggg/httpd-config $conf_predir/
 # DEBUG: instead of git clone
 #cp -Rf .. "$conf_predir"
 
