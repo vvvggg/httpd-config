@@ -35,57 +35,10 @@ function restart_httpd() {
       # fu&^#%( systemd stuff might is buggy here...
       #systemctl restart apache2
       ## workaround:
-      
-            echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-        /bin/ps -ef | egrep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-        /bin/ss -nlp | egrep '(:80)|(:443)'
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-
-
-
-
-      echo "===> DEBUG: Stopping Apache httpd:"
-        apache2 -k stop
-      echo "===> DEBUG: /Stopping Apache httpd:"
-
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-        /bin/ps -ef | egrep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-        /bin/ss -nlp | egrep '(:80)|(:443)'
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-
-
-      echo "===> DEBUG: Killing Apache httpd remnants, if any:"
-        pkill --signal SIGKILL apache2 2>&1 > /dev/null
-      echo "===> DEBUG: /Killing Apache httpd remnants, if any:"
-
-
-
-
-
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-        /bin/ps -ef | egrep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-        /bin/ss -nlp | egrep '(:80)|(:443)'
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-
-      echo "===> DEBUG: Starting Apache httpd:"
-        apache2 -k start
-        sleep 2
-      echo "===> DEBUG: /Starting Apache httpd:"
-
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-        /bin/ps -ef | egrep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-        /bin/ss -nlp | egrep '(:80)|(:443)'
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
-
-      
+      apache2 -k stop
+      pkill --signal SIGKILL apache2 2>&1 > /dev/null
+      apache2 -k start
+      sleep 2
 ;;
     *FreeBSD*)
       service apache24 restart
@@ -107,7 +60,7 @@ echo ">>> $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
 ./test_install.sh  &&\
 restart_httpd      &&\
 ./test_runtime.sh  &&\
-./test_custom.sh
+./test_custo.sh
 ## /Test
 
 # Success only if all the previous tests are exited with 0
