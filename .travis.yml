@@ -14,8 +14,8 @@ script:
   - sudo bash deploy/deploy.sh
 #  - bash test/test.sh
 
-services:
-  - apache
+#services:
+#  - docker
 
 #after_success:
 #  - sh .travis/deploy_dockerhub.sh
