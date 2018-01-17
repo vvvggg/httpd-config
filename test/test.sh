@@ -21,9 +21,7 @@
 
 
 # Exit immediately on any errors, using an unset var is error
-# `-o pipefail' is commented because we want to know all the tests result
-#set -Eeuo pipefail
-set -Eeu
+set -Eeuo pipefail
 umask 022
 
 function restart_httpd() {
