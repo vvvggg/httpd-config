@@ -1,12 +1,12 @@
 branches:
   only:
-  - master
+    - master
 
 sudo: required
 
 language: perl
 
-before_script
+before_script:
   - apt-get update -yqq 
   - apt-get install -yqq bash
 
