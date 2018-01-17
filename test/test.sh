@@ -107,9 +107,16 @@ echo '>>> '`date "+%Y-%m-%d %H:%M:%S %Z"`
 ./test_install.sh  &&\
 restart_httpd      &&\
 ./test_runtime.sh  &&\
-./test_custom.sh   &&\
-echo SUCCESS.
+./test_custom.sh
 ## /Test
+
+if [[ -z $? ]]; then
+  echo SUCCESS
+  exit 0
+else
+  echo FAIL
+  exit 64
+fi
 
 echo '<<< '`date "+%Y-%m-%d %H:%M:%S %Z"`
 
