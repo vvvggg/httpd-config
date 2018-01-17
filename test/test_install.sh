@@ -5,8 +5,10 @@
 ###                   https://github.com/vvvggg/httpd-config and deployed
 ###                   (most likely) with its deploy/deploy.sh
 
-# Exit immediately on any errors incl. pipes, using an unset var is error
-set -Eeuo pipefail
+# Exit immediately on any errors, using an unset var is error
+# `-o pipefail' is commented because we want to know all the tests result
+#set -Eeuo pipefail
+set -Eeu
 
 # Presuming the following file hierarchy:
 #    ...
