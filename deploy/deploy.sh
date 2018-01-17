@@ -244,14 +244,10 @@ esac
 
 ## Tests
 cd "${conf_predir}/test"
-./test.sh
+./test.sh && echo "<<< $0" && exit 0
 ## /Tests
 
 
-echo "<<< $0"
-
-
-exit 0
 
 
 ### P.S.
