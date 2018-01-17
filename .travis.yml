@@ -1,0 +1,21 @@
+branches:
+  only:
+  - master
+
+sudo: required
+
+language: perl
+
+before_script
+  - apt-get update -yqq 
+  - apt-get install -yqq bash
+
+script:
+  - bash deploy/deploy.sh
+
+#services:
+#  - docker
+
+#after_success:
+#  - sh .travis/deploy_dockerhub.sh
+#- test "$TRAVIS_BRANCH" = "master" && sh .travis/deploy_heroku.sh
