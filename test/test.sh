@@ -59,7 +59,7 @@ function restart_httpd() {
 
 
       echo "===> DEBUG: Killing Apache httpd remnants, if any:"
-        pkill   apache2 2>&1 > /dev/null
+        pkill --signal SIGKILL apache2 2>&1 > /dev/null
       echo "===> DEBUG: /Killing Apache httpd remnants, if any:"
 
 
