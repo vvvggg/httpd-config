@@ -244,7 +244,7 @@ esac
 
 ## Tests
 cd "${conf_predir}/test"
-./test.sh || ( echo "<<< $0"; exit 64 )
+./test.sh || ( echo "<<< $0"; exit 80 )
 ## /Tests
 
 
