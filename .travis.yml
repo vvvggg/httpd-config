@@ -4,7 +4,7 @@ branches:
 
 sudo: required
 
-language: perl
+language: 
 
 #before_script:
 #  - apt-get update -yqq 
