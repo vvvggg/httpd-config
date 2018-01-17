@@ -11,8 +11,8 @@ before_script:
   - apt-get install -yqq bash
 
 script:
-  - bash deploy/deploy.sh
-
+#  - bash deploy/deploy.sh
+  - bash test/test.sh
 #services:
 #  - docker
 
