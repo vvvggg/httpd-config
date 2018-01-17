@@ -13,8 +13,9 @@ language:
 script:
   - sudo bash deploy/deploy.sh
 #  - bash test/test.sh
-#services:
-#  - docker
+
+services:
+  - apache
 
 #after_success:
 #  - sh .travis/deploy_dockerhub.sh
