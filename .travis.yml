@@ -6,13 +6,13 @@ sudo: required
 
 language: perl
 
-before_script:
-  - apt-get update -yqq 
-  - apt-get install -yqq bash
+#before_script:
+#  - apt-get update -yqq 
+#  - apt-get install -yqq bash
 
 script:
-#  - bash deploy/deploy.sh
-  - bash test/test.sh
+  - bash deploy/deploy.sh
+#  - bash test/test.sh
 #services:
 #  - docker
 
