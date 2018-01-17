@@ -118,5 +118,6 @@ if [[ -z $? ]]; then
 else
   echo FAIL.
   echo '<<< $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
-  exit 64
+  # 47 exit codes [79..125] are compatible for cross-platform custom usage
+  exit 79
 fi
