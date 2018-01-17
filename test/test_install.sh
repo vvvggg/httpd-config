@@ -114,7 +114,7 @@ rm -f "$log_dir/test"
 # Is any of tests failed?
 if [[ $err_flag == true ]]; then
   # 47 exit codes [79..125] are compatible for cross-platform custom usage
-  exit 64
+  exit 79
 fi
 
 ## /Main logic
