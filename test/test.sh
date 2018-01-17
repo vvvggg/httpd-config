@@ -99,7 +99,7 @@ function restart_httpd() {
 }
 
 
-echo '>>> $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
+echo ">>> $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
 
 
 ## Test
@@ -111,13 +111,13 @@ restart_httpd      &&\
 ## /Test
 
 # Success only if all the previous tests are exited with 0
-if [[ -z $? ]]; then
+if [[ $? -eq 0 ]]; then
   echo SUCCESS.
-  echo '<<< $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
+  echo "<<< $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
   exit 0
 else
   echo FAIL.
-  echo '<<< $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
+  echo "<<< $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
   # 47 exit codes [79..125] are compatible for cross-platform custom usage
   exit 79
 fi
