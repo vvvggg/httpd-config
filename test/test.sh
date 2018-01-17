@@ -114,4 +114,3 @@ echo SUCCESS.
 echo '<<< '`date "+%Y-%m-%d %H:%M:%S %Z"`
 
 
-exit 0
