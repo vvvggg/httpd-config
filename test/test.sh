@@ -99,25 +99,24 @@ function restart_httpd() {
 }
 
 
-echo '>>> '`date "+%Y-%m-%d %H:%M:%S %Z"`
+echo '>>> $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
 
 
 ## Test
-## Run all the tests in pipe: success only if all are exited 0
+## Run all the tests in pipe: 
 ./test_install.sh  &&\
 restart_httpd      &&\
 ./test_runtime.sh  &&\
 ./test_custom.sh
 ## /Test
 
+# Success only if all the previous tests are exited with 0
 if [[ -z $? ]]; then
-  echo SUCCESS
+  echo SUCCESS.
+  echo '<<< $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
   exit 0
 else
-  echo FAIL
+  echo FAIL.
+  echo '<<< $0 '`date "+%Y-%m-%d %H:%M:%S %Z"`
   exit 64
 fi
-
-echo '<<< '`date "+%Y-%m-%d %H:%M:%S %Z"`
-
-
