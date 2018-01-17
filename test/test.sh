@@ -25,7 +25,7 @@ set -Eeuo pipefail
 umask 022
 
 function restart_httpd() {
-  echo restarting httpd...
+  eecho restarting httpd...
   # Check OS type/distro and restart Apache httpd accordingly
   case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
     *CentOS*)
@@ -60,7 +60,7 @@ echo ">>> $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
 ./test_install.sh  &&\
 restart_httpd      &&\
 ./test_runtime.sh  &&\
-./test_custo.sh
+./test_custom.sh
 ## /Test
 
 # Success only if all the previous tests are exited with 0
