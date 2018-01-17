@@ -25,7 +25,7 @@ set -Eeuo pipefail
 umask 022
 
 function restart_httpd() {
-  eecho restarting httpd...
+  echo restarting httpd...
   # Check OS type/distro and restart Apache httpd accordingly
   case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
     *CentOS*)
