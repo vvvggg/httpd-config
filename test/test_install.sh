@@ -70,14 +70,14 @@ apache_user=`get_var "apache_user"`
 log_dir=`    get_var "log_dir"`
 req_cmds+=(  "sudo -u $apache_user touch"  )
 reqs+=(      "$log_dir/test"               )
-req_resps+=( "^$"                          )
+req_resps+=( "^t$"                          )
 
 ## Test 4
 req_names+=( "docs root dir read"         )
 document_root=` get_var "document_root"`
 req_cmds+=(  "sudo -u $apache_user ls -a" )
 reqs+=(      "$document_root"             )
-req_resps+=( "\,\."                       )
+req_resps+=( "\.\."                       )
 
 ### /Test definitions
 
