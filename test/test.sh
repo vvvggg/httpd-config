@@ -37,36 +37,57 @@ function restart_httpd() {
       # fu&^#%( systemd stuff might is buggy here...
       #systemctl restart apache2
       ## workaround:
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      /bin/ps -ef | grep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp):"
-      /bin/ss -nlp
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp):"
+      
+            echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+        /bin/ps -ef | egrep apache
+      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+        /bin/ss -nlp | egrep '(:80)|(:443)'
+      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+
+
+
 
       echo "===> DEBUG: Stopping Apache httpd:"
-      apache2 -k stop
-      pkill   apache2 2>&1 > /dev/null
+        apache2 -k stop
       echo "===> DEBUG: /Stopping Apache httpd:"
 
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      /bin/ps -ef | grep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp):"
-      /bin/ss -nlp
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp):"
+      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+        /bin/ps -ef | egrep apache
+      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+        /bin/ss -nlp | egrep '(:80)|(:443)'
+      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+
+
+      echo "===> DEBUG: Killing Apache httpd remnants, if any:"
+        pkill   apache2 2>&1 > /dev/null
+      echo "===> DEBUG: /Killing Apache httpd remnants, if any:"
+
+
+
+
+
+      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+        /bin/ps -ef | egrep apache
+      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+        /bin/ss -nlp | egrep '(:80)|(:443)'
+      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
 
       echo "===> DEBUG: Starting Apache httpd:"
-      apache2 -k start
-      sleep 2
+        apache2 -k start
+        sleep 2
       echo "===> DEBUG: /Starting Apache httpd:"
 
-      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      /bin/ps -ef | grep apache
-      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | grep apache):"
-      echo "===> DEBUG: Listening activities (/bin/ss -nlp):"
-      /bin/ss -nlp
-      echo "===> DEBUG: /Listening activities (/bin/ss -nlp):"
+      echo "===> DEBUG: Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+        /bin/ps -ef | egrep apache
+      echo "===> DEBUG: /Active Apache httpd processes (/bin/ps -ef | egrep apache):"
+      echo "===> DEBUG: Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+        /bin/ss -nlp | egrep '(:80)|(:443)'
+      echo "===> DEBUG: /Listening activities (/bin/ss -nlp | egrep '(:80)|(:443)'):"
+
+      
 ;;
     *FreeBSD*)
       service apache24 restart
