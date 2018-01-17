@@ -77,7 +77,7 @@ req_names+=( "docs root dir read"         )
 document_root=` get_var "document_root"`
 req_cmds+=(  "sudo -u $apache_user ls -a" )
 reqs+=(      "$document_root"             )
-req_resps+=( "\.\."                       )
+req_resps+=( "\,\."                       )
 
 ### /Test definitions
 
