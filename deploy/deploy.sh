@@ -163,20 +163,20 @@ ln -fs "${conf_predir}/${conf_dir}/httpd.conf" "${conf_predir}/${conf_file}"
 # The main config file (httpd.conf by default) configuration definitions
 # substitution with the configuration vars defined above, making backup of the
 # original config
-sed -i.ORIG -r -e "                                                                                  \
-s%^([[:space:]]*ServerRoot[[:space:]]+).*%\1\"${conf_predir}\"%;                                     \
-s%^([[:space:]]*Define[[:space:]]+conf_dir[[:space:]]+).*%\1\"${conf_dir}\"%;                        \
-s%^([[:space:]]*Define[[:space:]]+log_dir[[:space:]]+).*%\1\"${log_dir}\"%;                          \
-s%^([[:space:]]*Define[[:space:]]+server_incdir[[:space:]]+).*%\1\"\${conf_dir}/Includes/server\"%;  \
-s%^([[:space:]]*Define[[:space:]]+apache_user[[:space:]]+).*%\1\"${apache_user}\"%;                  \
-s%^([[:space:]]*Define[[:space:]]+apache_group[[:space:]]+).*%\1\"${apache_group}\"%;                \
-s%^([[:space:]]*Define[[:space:]]+mod_dir[[:space:]]+).*%\1\"${mod_dir}\"%;                          \
-s%^([[:space:]]*Define[[:space:]]+domain_name[[:space:]]+).*%\1\"${domain_name}\"%;                  \
-s%^([[:space:]]*Define[[:space:]]+server_admin[[:space:]]+).*%\1\"${server_admin}\"%;                \
-s%^([[:space:]]*Define[[:space:]]+document_root[[:space:]]+).*%\1\"${document_root}\"%;              \
-s%^([[:space:]]*Define[[:space:]]+ssl_key[[:space:]]+).*%\1\"${ssl_key}\"%;                          \
-s%^([[:space:]]*Define[[:space:]]+ssl_cert[[:space:]]+).*%\1\"${ssl_cert}\"%                         \
-" "${conf_predir}/${conf_dir}/httpd.conf"
+sed -i.ORIG -r                                                                                            \
+  -e "s%^([[:space:]]*ServerRoot[[:space:]]+).*%\1\"${conf_predir}\"%"                                    \
+  -e "s%^([[:space:]]*Define[[:space:]]+conf_dir[[:space:]]+).*%\1\"${conf_dir}\"%"                       \
+  -e "s%^([[:space:]]*Define[[:space:]]+log_dir[[:space:]]+).*%\1\"${log_dir}\"%"                         \
+  -e "s%^([[:space:]]*Define[[:space:]]+server_incdir[[:space:]]+).*%\1\"\${conf_dir}/Includes/server\"%" \
+  -e "s%^([[:space:]]*Define[[:space:]]+apache_user[[:space:]]+).*%\1\"${apache_user}\"%"                 \
+  -e "s%^([[:space:]]*Define[[:space:]]+apache_group[[:space:]]+).*%\1\"${apache_group}\"%"               \
+  -e "s%^([[:space:]]*Define[[:space:]]+mod_dir[[:space:]]+).*%\1\"${mod_dir}\"%"                         \
+  -e "s%^([[:space:]]*Define[[:space:]]+domain_name[[:space:]]+).*%\1\"${domain_name}\"%"                 \
+  -e "s%^([[:space:]]*Define[[:space:]]+server_admin[[:space:]]+).*%\1\"${server_admin}\"%"               \
+  -e "s%^([[:space:]]*Define[[:space:]]+document_root[[:space:]]+).*%\1\"${document_root}\"%"             \
+  -e "s%^([[:space:]]*Define[[:space:]]+ssl_key[[:space:]]+).*%\1\"${ssl_key}\"%"                         \
+  -e "s%^([[:space:]]*Define[[:space:]]+ssl_cert[[:space:]]+).*%\1\"${ssl_cert}\"%"                        \
+  "${conf_predir}/${conf_dir}/httpd.conf"
 
 # Log dir adjustment
 mkdir -pm 770 "$log_dir"
