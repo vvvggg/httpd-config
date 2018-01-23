@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-
 ### deploy.sh - deploy Modular Apache httpd configuration which will be
 ###             downloaded from https://github.com/vvvggg/httpd-config
-
 
 # Exit immediately on any errors incl. in pipes, using an unset var is error
 set -Eeuo pipefail
 umask 022
-
 
 # Presuming the following file hierarchy:
 #    ...
@@ -219,10 +216,11 @@ chmod 600 "$ssl_key" "$ssl_cert"
 
 
 ## Post-scripts
-## Some distro-dependant post-scripts
+
+# Some distro-dependant post-scripts
 case $os in
   centos)
-    # fu^$#&% systemd penetration
+    # add load module for fucking systemd support
     egrep -c '^[[:space:]]*LoadModule[[:space:]]+systemd_module' \
       "${conf_predir}/${conf_dir}/httpd.conf" > /dev/null ||\
     cat >> ${conf_predir}/${conf_dir}/httpd.conf <<EOD
@@ -239,17 +237,33 @@ EOD
     fi
   ;;
 esac
+
+# Comment `SSLSessionTickets off' uncommented directive
+# for httpd early versions (<2.4.) everywhere within the config dir
+# backing up with '.ORIG' files
+httpd_ver=`httpd `-v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
+if [[ $httpd_ver < '2.4.0' ]]; then
+  matched_files=`egrep  -RIils                                          \
+                        '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
+                        "${conf_predir}/${conf_dir}"/*`
+  for file in matched_files; do
+    sed -i.ORIG -r                                                \
+    -e "s%^([[:space:]]*SSLSessionTickets[[:space:]]+off.*)%#\1%" \
+    "$file"
+  done
+fi
 ## /Post-scripts
 
 
-## Tests
+## Tests run
 cd "${conf_predir}/test"
-./test.sh || ( echo "<<< $0"; exit 80 )
+./test.sh || (
+  echo "<<< $0"
+  exit 80
+)
 ## /Tests
 
-
 echo "<<< $0"
-
 exit 0
 
 
