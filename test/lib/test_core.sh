@@ -50,7 +50,7 @@ echo done.
 
 # Clean up test remnants here, if any
 # Should be get out of here...
-rm -f "$log_dir/test"
+#rm -f "$log_dir/test"
 
 # Is any of tests failed?
 if [[ $err_flag == true ]]; then
