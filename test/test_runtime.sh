@@ -24,28 +24,11 @@ set -Eeu
 #      |    `-...
 #      .
 
+# Library functions
+source "lib/test_func.sh"
 
-## Configuration defaults
-## DO NOT EDIT unless you're absolutely sure
-
-# Main configuration file
-config_file="../conf/httpd.conf"
-
-# Hack for `httpd -d ..' at Test2 below
-# TODO: need to fix though
-config_file_httpd="conf/httpd.conf"
-
-## /Configuration defaults
-
-# Get named var/const ($1) value from the actual Apache httpd config
-function get_var() {
-  echo `
-    httpd -S                         |\
-    egrep 'Define:[[:space:]]*'$1'=' |\
-    awk -F"$1=" "{print \\$2}"
-  `
-  # also see `httpd -D DUMP_VHOSTS -D DUMP_MODULES' output
-}
+# Configuration defaults
+source "lib/test_conf.sh"
 
 
 
@@ -110,6 +93,6 @@ SSL_TLS_SNI=${domain_name}"          )  # Bash Regex. Output expected to match
 ### /Test definitions
 
 
-## Main logic
-## Should be the last code part due to exits are there
+# Main logic
+# Should be the last code part due to exits are there
 source "lib/test_core.sh"
