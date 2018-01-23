@@ -3,9 +3,6 @@
 ### test_conf.sh  - a 'library' file to be included into test scripts.
 ###                 Describing defaults common for all the tests.
 
-# Exit immediately on any errors, using an unset var is error
-set -Eeuo pipefail
-
 # Presuming the following file hierarchy:
 #    ...
 #      |-conf
@@ -19,6 +16,7 @@ set -Eeuo pipefail
 #      |    |-test*.sh
 #      |    `-...
 #      .
+
 
 ## Configuration defaults for tests
 

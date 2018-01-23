@@ -19,46 +19,18 @@
 #      |    `-...
 #      .
 
-
 # Exit immediately on any errors, using an unset var is error
 set -Eeuo pipefail
 umask 022
 
-function restart_httpd() {
-  echo restarting httpd...
-  # Check OS type/distro and restart Apache httpd accordingly
-  case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
-    *CentOS*)
-      systemctl restart httpd
-    ;;
-    *Ubuntu*)
-      # fu&^#%( systemd stuff might is buggy here...
-      #systemctl restart apache2
-      ## workaround:
-      apache2ctl stop
-      pkill --signal SIGKILL apache2 2>&1 > /dev/null
-      apache2ctl start
-      sleep 2
-;;
-    *FreeBSD*)
-      service apache24 restart
-    ;;
-    *)
-      echo -n "Don't know how to restart Apache in this OS, "
-      echo    " skipping"
-    ;;
-  esac
-  echo done.
-}
+# Library functions
+source "lib/test_func.sh"
 
 
-echo ">>> $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
-
-
-## Test
-## Run all the tests in pipe: 
+## Test'em all
+## Run all the tests in pipe:
 ./test_install.sh  &&\
-restart_httpd      &&\
+httpd_restart      &&\
 ./test_runtime.sh  &&\
 ./test_custom.sh
 ## /Test
@@ -66,11 +38,11 @@ restart_httpd      &&\
 # Success only if all the previous tests are exited with 0
 if [[ $? -eq 0 ]]; then
   echo SUCCESS.
-  echo "<<< $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
+  echo_start_mark
   exit 0
 else
   echo FAIL.
-  echo "<<< $0 "`date "+%Y-%m-%d %H:%M:%S %Z"`
+  echo_finish_mark
   # 47 exit codes [79..125] are compatible for cross-platform custom usage
   exit 79
 fi

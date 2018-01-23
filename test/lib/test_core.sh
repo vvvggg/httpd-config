@@ -3,11 +3,6 @@
 ### test_core.sh  - a 'library' file to be included into test scripts.
 ###                 Implementing main logic MUST be common for all the tests.
 
-# Exit immediately on any errors, using an unset var is error
-# `-o pipefail' is commented because we want to know all the tests result
-#set -Eeuo pipefail
-set -Eeu
-
 # Presuming the following file hierarchy:
 #    ...
 #      |-conf
@@ -21,6 +16,7 @@ set -Eeu
 #      |    |-test*.sh
 #      |    `-...
 #      .
+
 
 ## Main logic
 ## DO NOT EDIT unless you're absolutely sure

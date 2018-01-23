@@ -37,8 +37,8 @@ source "lib/test_conf.sh"
 
 
 ## Common vars for functional tests
-domain_name=`  get_var "domain_name"  `
-document_root=`get_var "document_root"`
+domain_name=`  httpd_config_get_var "domain_name"  `
+document_root=`httpd_config_get_var "document_root"`
 
 # HTTPS by default is too easy :-), hence it's commented
 #url="https://$domain_name"

@@ -4,7 +4,7 @@
 ###                  configuration which is got from
 ###                  https://github.com/vvvggg/httpd-config and deployed
 ###                  (most likely) with its deploy/deploy.sh
-
+# 
 # Exit immediately on any errors, using an unset var is error
 # `-o pipefail' is commented because we want to know all the tests result
 #set -Eeuo pipefail
@@ -37,8 +37,8 @@ source "lib/test_conf.sh"
 
 
 ## Common vars for functional tests
-domain_name=`  get_var "domain_name"  `
-document_root=`get_var "document_root"`
+domain_name=`  httpd_config_get_var "domain_name"  `
+document_root=`httpd_config_get_var "document_root"`
 
 # HTTPS by default is too easy :-), hence it's commented
 #url="https://$domain_name"

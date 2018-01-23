@@ -49,15 +49,15 @@ req_resps+=( "Syntax OK"          )
 
 ## Test 3
 req_names+=( "logs directory writable"     )
-apache_user=`get_var "apache_user"`
-log_dir=`    get_var "log_dir"`
+apache_user=`httpd_config_get_var "apache_user"`
+log_dir=`    httpd_config_get_var "log_dir"`
 req_cmds+=(  "sudo -u $apache_user touch"  )
 reqs+=(      "$log_dir/test"               )
 req_resps+=( "^$"                          )
 
 ## Test 4
 req_names+=( "docs root dir read"         )
-document_root=` get_var "document_root"`
+document_root=` httpd_config_get_var "document_root"`
 req_cmds+=(  "sudo -u $apache_user ls -a" )
 reqs+=(      "$document_root"             )
 req_resps+=( "\.\."                       )
