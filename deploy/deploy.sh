@@ -241,17 +241,17 @@ esac
 # Comment `SSLSessionTickets off' uncommented directive
 # for httpd early versions (<2.4.) everywhere within the config dir
 # backing up with '.ORIG' files
-httpd_ver=`httpd -v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
-if [[ $httpd_ver < '2.4.0' ]]; then
-  matched_files=`egrep  -RIils                                          \
-                        '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
-                        "${conf_predir}/${conf_dir}"/*`
-  for file in matched_files; do
-    sed -i.ORIG -r                                                \
-    -e "s%^([[:space:]]*SSLSessionTickets[[:space:]]+off.*)%#\1%" \
-    "$file"
-  done
-fi
+# httpd_ver=`httpd -v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
+# if [[ $httpd_ver < '2.4.0' ]]; then
+#   matched_files=`egrep  -RIils                                          \
+#                         '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
+#                         "${conf_predir}/${conf_dir}"/*`
+#   for file in matched_files; do
+#     sed -i.ORIG -r                                                \
+#     -e "s%^([[:space:]]*SSLSessionTickets[[:space:]]+off.*)%#\1%" \
+#     "$file"
+#   done
+# fi
 ## /Post-scripts
 
 
