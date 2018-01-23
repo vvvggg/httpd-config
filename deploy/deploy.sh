@@ -243,7 +243,7 @@ esac
 # backing up with '.ORIG' files
 httpd_ver=`httpd -v | grep version | sed -r \
              -e 's/.*Apache\/2\.([[:digit:]]+)\.([[:digit:]]+).*/2\1\2/'`
-if [[ $httpd_ver < '2412' ]]; then
+if [[ $httpd_ver -lt '2412' ]]; then
   matched_files=`egrep  -RIils                                          \
                        '^[[:space:]]*SSLSessionTickets[[:space:]]+off'  \
                        "${conf_predir}/${conf_dir}"/*`
