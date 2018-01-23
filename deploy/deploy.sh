@@ -241,7 +241,7 @@ esac
 # Comment `SSLSessionTickets off' uncommented directive
 # for httpd early versions (<2.4.) everywhere within the config dir
 # backing up with '.ORIG' files
-# httpd_ver=`httpd -v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
+httpd_ver=`httpd -v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
 # if [[ $httpd_ver < '2.4.0' ]]; then
 #   matched_files=`egrep  -RIils                                          \
 #                         '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
