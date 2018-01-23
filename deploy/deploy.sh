@@ -243,9 +243,9 @@ esac
 # backing up with '.ORIG' files
 httpd_ver=`httpd -v | grep version | cut -d ' ' -f 3 | cut -d '/' -f 2`
 if [[ $httpd_ver < '2.4.0' ]]; then
-#   matched_files=`egrep  -RIils                                          \
-#                         '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
-#                         "${conf_predir}/${conf_dir}"/*`
+ matched_files=`egrep  -RIils                                          \
+                       '^[[:space:]]*SSLSessionTickets[[:space:]]+off' \
+                       "${conf_predir}/${conf_dir}"/*`
 #   for file in matched_files; do
 #     sed -i.ORIG -r                                                \
 #     -e "s%^([[:space:]]*SSLSessionTickets[[:space:]]+off.*)%#\1%" \
