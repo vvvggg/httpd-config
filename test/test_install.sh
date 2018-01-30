@@ -38,8 +38,9 @@ source "lib/test_conf.sh"
 ## Test 1
 req_names=( "config file read" )  # test name in the output
 req_cmds=(  "file"             )  # command to run
-reqs=(      "$config_file"     )  # param to concatenate the command
-req_resps=( "ASCII text"       )  # Bash Regex. Output expected to match
+reqs=(      "$config_file"     )  # the last option to be _double-quoted_ and
+                                  #   concatenated with the command to run
+req_resps=( "ASCII text"       )  # Bash Regex. Command output expected to match
 
 ## Test 2
 req_names+=( "Apache configtest"  )
@@ -48,12 +49,12 @@ reqs+=(      "$config_file_httpd" )
 req_resps+=( "Syntax OK"          )
 
 ## Test 3
-req_names+=( "logs directory writable"     )
+req_names+=( "logs directory writable"                 )
 apache_user=`httpd_config_get_var "apache_user"`
 log_dir=`    httpd_config_get_var "log_dir"`
-req_cmds+=(  "sudo -u $apache_user touch"  )
-reqs+=(      "$log_dir/test"               )
-req_resps+=( "^$"                          )
+req_cmds+=(  "sudo -u $apache_user bash -c"            )
+reqs+=(      "touch $log_dir/test && rm $log_dir/test" )
+req_resps+=( "^$"                                      )
 
 ## Test 4
 req_names+=( "docs root dir read"         )
