@@ -45,6 +45,12 @@ document_root=`httpd_config_get_var "document_root"`
 # We want to test automatic HTTP -> HTTPS redirect as well, so start with HTTP
 url="http://$domain_name"
 
+# for just `/' our test /index.html by default will be got here (see
+# deploy/deploy.sh for details)
+# TODO: change to something like `index.test.html' with appropriate access
+# rules, to give place for prod' one
+uri="/"
+
 ## /Common vars for functional tests
 
 
@@ -62,12 +68,8 @@ req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
 
 
 ## Test 2
-# Copy test HTML/SSI file as index.html for this test only
-cp "index.test.html" "${document_root}/index.html"
-# And test this index
-uri="/"
 req_names+=( "HTTP GET ${url}${uri}" )  # Test name in the output
-req_cmds+=(  "curl -kfsSL"           )  # Command to run
+req_cmds+=(  "curl -kfsSSL"          )  # Command to run
 req_opts+=(  "${url}${uri}"          )  # The last option to be later
                                         # _double-quoted_ and concatenated in
                                         # the core with the command to run
@@ -80,10 +82,7 @@ DOCUMENT_ROOT=${document_root}.+\
 REQUEST_URI=/.+\
 SERVER_NAME=${domain_name}.+\
 SSL_TLS_SNI=${domain_name}"          )  # Bash Regex. Output expected to match
-# rm "${document_root}/index.html"
-# Rename the test index file, leave it for further tests secured by .htaccess
-mv "${document_root}/index.html" "${document_root}/index.test.html"
-cp ".htaccess.test" "${document_root}/.htaccess"
+
 
 ## Test 3
 #req_names+=( "Apache configtest"  )
