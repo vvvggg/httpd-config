@@ -55,7 +55,7 @@ function get_apache_proc_num() {
   pgrep "(httpd)|(apache2)" | wc -l
 }
 req_cmds=(  "get_apache_proc_num"                )
-reqs=(      ""                                   )
+req_opts=(  ""                                   )
 req_users=( ""                                   )
 req_psws=(  ""                                   )
 req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
@@ -66,11 +66,13 @@ req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
 cp "index.test.html" "${document_root}/index.html"
 # And test this index
 uri="/"
-req_names+=( "HTTP GET ${url}${uri}" )  # test name in the output
-req_cmds+=(  "curl -kfsSSL"          )  # command to run
-reqs+=(      "${url}${uri}"          )  # param to concatenate the command
-req_users+=( ""                      )  # user name to use similar to reqs
-req_psws+=(  ""                      )  # the user password
+req_names+=( "HTTP GET ${url}${uri}" )  # Test name in the output
+req_cmds+=(  "curl -kfsSL"           )  # Command to run
+req_opts+=(  "${url}${uri}"          )  # The last option to be later
+                                        # _double-quoted_ and concatenated in
+                                        # the core with the command to run
+req_users+=( ""                      )  # User name to use like as req_opts
+req_psws+=(  ""                      )  # The user password
 req_resps+=( "It works.+\
 </html>.+\
 <html.+\
@@ -86,7 +88,7 @@ cp ".htaccess.test" "${document_root}/.htaccess"
 ## Test 3
 #req_names+=( "Apache configtest"  )
 #req_cmds+=(  "httpd -d .. -t -f"  )
-#reqs+=(      "$config_file_httpd" )
+#req_opts+=(  "$config_file_httpd" )
 #req_users+=( ""                   )
 #req_psws+=(  ""                   )
 #req_resps+=( "Syntax OK"          )
