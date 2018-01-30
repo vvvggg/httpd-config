@@ -44,7 +44,7 @@ document_root=`httpd_config_get_var "document_root"`
 #url="https://$domain_name"
 # We want to test automatic HTTP -> HTTPS redirect as well, so start with HTTP
 url="http://$domain_name"
-
+uri="/"
 
 ## /Common vars for functional tests
 
