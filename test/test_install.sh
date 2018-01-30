@@ -44,10 +44,10 @@ req_opts=(  "$config_file"     )  # The last option to be _double-quoted_ and
 req_resps=( "ASCII text"       )  # Bash Regex. Command output expected to match
 
 ## Test 2
-req_names+=( "Apache configtest"  )
-req_cmds+=(  "httpd -d .. -t -f"  )
-req_opts+=(      "$config_file_httpd" )
-req_resps+=( "Syntax OK"          )
+req_names+=( "Apache configtest"      )
+req_cmds+=(  "httpd -d ../conf -t -f" )
+req_opts+=(  "$config_file"           )
+req_resps+=( "Syntax OK"              )
 
 ## Test 3
 req_names+=( "logs directory writable"                 )

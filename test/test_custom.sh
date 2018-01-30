@@ -47,8 +47,6 @@ url="http://$domain_name"
 
 # for just `/' our test /index.html by default will be got here (see
 # deploy/deploy.sh for details)
-# TODO: change to something like `index.test.html' with appropriate access
-# rules, to give place for prod' one
 uri="/"
 
 ## /Common vars for functional tests
@@ -70,12 +68,12 @@ uri="/"
 
 
 ## Test 2
-#req_names+=( "Apache configtest"  )
-#req_cmds+=(  "httpd -d .. -t -f"  )
-#req_opts+=(  "$config_file_httpd" )
-#req_users+=( ""                   )
-#req_psws+=(  ""                   )
-#req_resps+=( "Syntax OK"          )
+#req_names+=( "Apache configtest"      )
+#req_cmds+=(  "httpd -d ../conf -t -f" )
+#req_opts+=(  "$config_file"           )
+#req_users+=( ""                       )
+#req_psws+=(  ""                       )
+#req_resps+=( "Syntax OK"              )
 
 
 ## Test 3

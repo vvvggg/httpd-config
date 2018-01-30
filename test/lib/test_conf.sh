@@ -22,9 +22,3 @@
 
 # Main httpd configuration file
 config_file="../conf/httpd.conf"
-
-# Hack for `httpd -d ..' at installatino Test2
-# TODO: need to fix though
-# this is how httpd see relative path to its config
-# probably `httpd -d ...' should use `-f' flag in the test
-config_file_httpd="conf/httpd.conf"
