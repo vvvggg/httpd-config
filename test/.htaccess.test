@@ -1,0 +1,5 @@
+# test index.html
+<Files "index.test.html">
+  # Change to `Require  all granted' or so to make it accessible
+  Require  all denied
+</Files>
