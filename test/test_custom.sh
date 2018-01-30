@@ -4,7 +4,7 @@
 ###                  configuration which is got from
 ###                  https://github.com/vvvggg/httpd-config and deployed
 ###                  (most likely) with its deploy/deploy.sh
-# 
+#
 # Exit immediately on any errors, using an unset var is error
 # `-o pipefail' is commented because we want to know all the tests result
 #set -Eeuo pipefail
@@ -54,22 +54,37 @@ uri="/"
 ## /Common vars for functional tests
 
 
+
+### Test definitions
+
+
 ## Test 1
-#req_names=( "HTTP GET ${url}${uri}" )  # test name in the output
-#req_cmds=(  "curl -kfsSSL"          )  # command to run
-#reqs=(      "${url}${uri}"          )  # param to concatenate the command
-#req_users=( ""                      )  # user name to use similar to reqs
-#req_psws=(  ""                      )  # the user password
+#req_names=( "HTTP GET ${url}${uri}" )  # Test name in the output
+#req_cmds=(  "curl -kfsSSL"          )  # Command to run
+#req_opts=(  "${url}${uri}"          )  # The last option to be
+                                        # _double-quoted_ and concatenated with
+                                        # The command to run
+#req_users=( ""                      )  # User name to use like as req_opts
+#req_psws=(  ""                      )  # The user password
 #req_resps=( "DOCUMENT_ROOT="        )  # Bash Regex. Output expected to match
 
 
 ## Test 2
 #req_names+=( "Apache configtest"  )
 #req_cmds+=(  "httpd -d .. -t -f"  )
-#reqs+=(      "$config_file_httpd" )
+#req_opts+=(  "$config_file_httpd" )
 #req_users+=( ""                   )
 #req_psws+=(  ""                   )
 #req_resps+=( "Syntax OK"          )
+
+
+## Test 3
+# req_names+=( "logs directory writable"                 )
+# apache_user=`httpd_config_get_var "apache_user"`
+# log_dir=`    httpd_config_get_var "log_dir"`
+# req_cmds+=(  "sudo -u $apache_user sh -c"              )
+# req_opts+=(  "touch $log_dir/test && rm $log_dir/test" )
+# req_resps+=( "^$"                                      )
 
 ### /Test definitions
 

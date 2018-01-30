@@ -31,7 +31,7 @@ if [[ -n ${req_names+x} ]]; then
     echo -n "  $(( i + 1 ))/${#req_names[@]} test "
     echo -n "${req_names[$i]}... "
 
-    response=`${req_cmds[$i]} "${reqs[$i]}" 2>&1 | LC_ALL=C sort`
+    response=`${req_cmds[$i]} "${req_opts[$i]}" 2>&1 | LC_ALL=C sort`
 
     if [[ ${response} =~ ${req_resps[$i]} ]]; then
       echo passed.
