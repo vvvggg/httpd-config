@@ -64,7 +64,7 @@ req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
 ## Test 2
 # Copy test HTML/SSI file as index.html for this test only
 cwd=`dirname $0`
-cp "$cwd/cp "index.test.html" "${document_root}/index.html"
+cp "$cwd/index.test.html" "${document_root}/index.html"
 # And test this index
 uri="/"
 req_names+=( "HTTP GET ${url}${uri}" )  # Test name in the output
