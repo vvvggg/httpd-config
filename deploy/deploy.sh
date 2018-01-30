@@ -254,10 +254,20 @@ fi
 
 ## Tests run
 cd "${conf_predir}/test"
+
+# Copy test HTML/SSI file as index.html for this test only
+cp -f "index.test.html" "${document_root}/index.html"
+
 ./test.sh || (
   echo "<<< $0"
   exit 80
 )
+
+# rm "${document_root}/index.html"
+# Leave renamed test index file secured by .htaccess for further tests 
+mv "${document_root}/index.html" "${document_root}/index.test.html"
+cp ".htaccess.test" "${document_root}/.htaccess"
+
 ## /Tests
 
 echo "<<< $0"
