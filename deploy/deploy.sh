@@ -184,10 +184,6 @@ chmod g+rwx "$log_dir"
 mkdir -pm 750 "$document_root"
 chgrp $apache_group "$document_root"
 
-# Test HTML/SSI file at DocumentRoot. For deploy/debug/test purposes only.
-# To be replaced in prod.
-cp "${conf_predir}/test/index.html" "${document_root}/"
-
 
 ## SSL cert
 # Generate the private key and 3-year self-signed X.509 SSL cert
