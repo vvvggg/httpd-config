@@ -63,7 +63,8 @@ req_resps=( "^[[:space:]]*([1-9][0-9]+)|([2-9])" )  # >1 (or 10+)
 
 ## Test 2
 # Copy test HTML/SSI file as index.html for this test only
-cp "index.test.html" "${document_root}/index.html"
+cwd=`dirname $0`
+cp "$cwd/cp "index.test.html" "${document_root}/index.html"
 # And test this index
 uri="/"
 req_names+=( "HTTP GET ${url}${uri}" )  # Test name in the output
@@ -83,7 +84,7 @@ SSL_TLS_SNI=${domain_name}"          )  # Bash Regex. Output expected to match
 # rm "${document_root}/index.html"
 # Rename the test index file, leave it for further tests secured by .htaccess
 mv "${document_root}/index.html" "${document_root}/index.test.html"
-cp ".htaccess.test" "${document_root}/.htaccess"
+cp "$cwd/.htaccess.test" "${document_root}/.htaccess"
 
 ## Test 3
 #req_names+=( "Apache configtest"  )
