@@ -1,0 +1,3 @@
+<Files "index.test.html">
+  Require  all denied
+</Files>
