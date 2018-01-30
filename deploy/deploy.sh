@@ -263,8 +263,7 @@ cp "index.test.html" "${document_root}/index.html"
   exit 80
 )
 
-# rm "${document_root}/index.html"
-# Leave renamed test index file secured by .htaccess for further tests
+# Leave renamed test index file secured by .htaccess for further possible tests
 cp "${document_root}/index.html" "${document_root}/index.test.html"
 cp ".htaccess.test" "${document_root}/.htaccess"
 
