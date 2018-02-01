@@ -21,7 +21,6 @@
 ## Main logic
 ## DO NOT EDIT unless you're absolutely sure
 
-echo running installation tests...
 err_flag=false
 
 # test'em all if $req_names set
