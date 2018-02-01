@@ -89,4 +89,5 @@ uri="/"
 
 # Main logic
 # Should be the last code part due to exits are there
+echo running custom tests...
 source "lib/test_core.sh"
