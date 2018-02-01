@@ -45,6 +45,10 @@ ssl_key="/etc/ssl/privkey.pem"
 # X.509 SSL self-signed certificate to be generated
 ssl_cert="/etc/ssl/${domain_name}.pem"
 
+# Public access dir
+#pub_dir="${document_root}/pub"
+pub_dir=""
+
 ## /Custom vars
 
 
@@ -77,6 +81,9 @@ mod_dir="/usr/lib64/httpd/modules"
 # Directory containing all the log files
 log_dir="/var/log/httpd"
 
+# File type icons dir
+icons_dir="/usr/share/httpd/icons"
+
 ## /Configuration defaults
 
 
@@ -97,6 +104,7 @@ case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
     apache_group="www-data"
     mod_dir="/usr/lib/apache2/modules"
     log_dir="/var/log/apache2"
+    icons_dir="/usr/share/apache2/icons"
   ;;
   *FreeBSD*)
     os="freebsd"
@@ -106,6 +114,7 @@ case `uname -o; if [[ -f /etc/os-release ]]; then cat /etc/os-release; fi` in
     apache_group="www"
     mod_dir="/usr/local/libexec/apache24"
     log_dir="/var/log/apache24"
+    icons_dir="/usr/local/www/apache24/icons"
   ;;
   *)
     os="other"
@@ -184,6 +193,11 @@ chmod g+rwx "$log_dir"
 mkdir -pm 750 "$document_root"
 chgrp $apache_group "$document_root"
 
+# Icons dir
+# will be linked to $pub_dir/icons if $pub_dir defined
+if [ -z ${pub_dir+x} ]; then
+  ln -fs "$icons_dir" "${pub_dir}/icons"
+fi
 
 ## SSL cert
 # Generate the private key and 3-year self-signed X.509 SSL cert
