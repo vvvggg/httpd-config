@@ -92,4 +92,5 @@ SSL_TLS_SNI=${domain_name}"          )  # Bash Regex. Output expected to match
 
 # Main logic
 # Should be the last code part due to exits are there
+echo running runtime tests...
 source "lib/test_core.sh"
