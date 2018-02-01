@@ -69,4 +69,5 @@ req_resps+=( "\.\."                       )
 
 # Main logic
 # Should be the last code part due to exits are there
+echo running installation tests...
 source "lib/test_core.sh"
