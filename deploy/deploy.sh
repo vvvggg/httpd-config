@@ -47,6 +47,7 @@ ssl_cert="/etc/ssl/${domain_name}.pem"
 
 # Public access dir
 #pub_dir="${document_root}/pub"
+pub_dir=""
 
 ## /Custom vars
 
