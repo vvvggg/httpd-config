@@ -7,7 +7,18 @@ By default includes two virtual hosts with common `DocumentRoot` directory: HTTP
 
 Some well-tested configuration examples/snippets are included. FCGId module is included as well.
 
+
 ## Deployment
+
+### Backups
+
+By default `deploy/deploy.sh` automatically backups the previous configuration directory with `.ORIG` suffix.
+
+### SSL certificates
+
+**IMPORTANT**: By default `deploy/deploy.sh` generates a PLAIN private key and a 'blank' 3-year self-signed X.509 SSL certificate at `/etc/ssl`, so if you'd like to don't this, update `deploy/deploy.sh` at the step 2 below accordingly.
+
+### Deployment procedure
 
   1. Download deployment script: `curl -fsSL https://raw.githubusercontent.com/vvvggg/httpd-config/master/deploy/deploy.sh > /tmp/deploy.sh`
   2. Update `/tmp/deploy.sh` Configuration defaults up to your needs: `domain_name`, `server_admin`, `document_root`, maybe `ssl_*` as well.
@@ -15,15 +26,12 @@ Some well-tested configuration examples/snippets are included. FCGId module is i
   4. Place at `$document_root` whatever you want
   5. Enjoy or rise a GitHub issue
 
-**`deploy.sh` generates a PLAIN private key and 'blank' 3-year self-signed X.509 SSL certificate at `/etc/ssl` by default**
-
-`deploy.sh` automatically backups the previous configuration with `.ORIG` suffix by default.
-
 Main configuration parameters (aka constants) are described at `conf/httpd.conf` and `deploy/deploy.sh`.
 
 ### `DocumentRoot` contents
 
-By default `deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, EVERYTHING there can be easily removed or changed if you like to.
+By default `deploy/deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, EVERYTHING there can be easily removed or changed if you like to.
+
 
 ## Docker
 
@@ -36,6 +44,7 @@ docker run -d --name apache-test -p 80:80 -p 443:443 httpd-config-test
 curl -ksSL localhost
 ```
 
+
 ## Tests
 
 In general, you can use `curl -ksSL localhost` to get the result of the default `httpd-config` deployment, however, there is more covered automation:
@@ -47,4 +56,3 @@ Successfully last tested with:
  * Apache httpd 2.4.6-67.el7.centos.6 on CentOS 7.4
  * Apache httpd 2.4.29 on FreeBSD 11.1-RELEASE-p6
  * Apache httpd 2.4.18 on Docker 17.12.0-ce with ubuntu:16.04
- 
