@@ -1,4 +1,6 @@
-# test index.html
+# Test index file
+# You can easily REMOVE THIS file, index.test.html OR EVERYTHING in this dir for prod usage
+# ...Or leave them for test purposes, if needed
 <Files "index.test.html">
   # Change to `Require  all granted' or so to make it accessible
   Require  all denied
