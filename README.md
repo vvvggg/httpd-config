@@ -15,11 +15,15 @@ Some well-tested configuration examples/snippets are included. FCGId module is i
   4. Place at `$document_root` whatever you want
   5. Enjoy or rise a GitHub issue
 
-**deploy.sh generates a PLAIN private key and 'blank' 3-year self-signed X.509 SSL certificate at /etc/ssl by default**
+**`deploy.sh` generates a PLAIN private key and 'blank' 3-year self-signed X.509 SSL certificate at `/etc/ssl` by default**
 
-Backups the previous configuration with `.ORIG` suffix.
+`deploy.sh` automatically backups the previous configuration with `.ORIG` suffix by default.
 
-Main configuration parameters (aka constants) are described at `conf/httpd.conf`.
+Main configuration parameters (aka constants) are described at `conf/httpd.conf` and `deploy/deploy.sh`.
+
+### `DocumentRoot` contents
+
+By default `deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, EVERYTHING there can be easily removed or changed if you like to.
 
 ## Docker
 
