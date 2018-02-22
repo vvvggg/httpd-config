@@ -238,13 +238,16 @@ LoadModule  systemd_module  "\${mod_dir}/mod_systemd.so"
 EOD
   ;;
   ubuntu)
-    # Ubuntu has to have several environment variables set before
+    # Ubuntu has to have several environment variables set up before
     # successful Apache httpd start attempt, all in one `envvars' file
     if [[ -f "${conf_predir}.ORIG/envvars" ]]; then
       cp -af "${conf_predir}.ORIG/envvars" "${conf_predir}/envvars"
     else
       cp -f  "${conf_predir}/deploy/envvars.ubuntu" "${conf_predir}/envvars"
     fi
+    # APT clean up
+    apt-get -yq clean
+    apt-get -yq autoremove
   ;;
 esac
 
