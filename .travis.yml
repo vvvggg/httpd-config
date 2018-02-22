@@ -6,12 +6,9 @@ sudo: required
 
 language:
 
-before_script:
-  - apt-get -yqq update
-  - apt-get -yqq upgrade
+#before_script:
 #  - apt-get -yqq install bash
-  - apt-get -yqq clean
-  - apt-get -yqq autoremove
+
 script:
   - sudo bash deploy/deploy.sh
 #  - bash test/test.sh
