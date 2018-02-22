@@ -56,3 +56,4 @@ Successfully last tested with:
  * Apache httpd 2.4.6-67.el7.centos.6 on CentOS 7.4
  * Apache httpd 2.4.29 on FreeBSD 11.1-RELEASE-p6
  * Apache httpd 2.4.18 on Docker 17.12.0-ce with ubuntu:16.04
+ * [TravisCI](https://travis-ci.org/vvvggg/httpd-config/builds) (Ubuntu 14.04 host)
