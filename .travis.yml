@@ -4,19 +4,21 @@ branches:
 
 sudo: required
 
-language: 
+language:
 
-#before_script:
-#  - apt-get update -yqq 
-#  - apt-get install -yqq bash
-
+before_script:
+  - apt-get -yqq update
+  - apt-get -yqq upgrade
+#  - apt-get -yqq install bash
+  - apt-get -yqq clean
+  - apt-get -yqq autoremove
 script:
   - sudo bash deploy/deploy.sh
 #  - bash test/test.sh
 
-#services:
-#  - docker
+services:
+  - docker
 
-#after_success:
-#  - sh .travis/deploy_dockerhub.sh
+after_success:
+  - sh .travis/deploy_dockerhub.sh
 #- test "$TRAVIS_BRANCH" = "master" && sh .travis/deploy_heroku.sh
