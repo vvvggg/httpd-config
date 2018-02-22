@@ -35,15 +35,37 @@ By default `deploy/deploy.sh`/tests generate (and leave) files into `DocumentRoo
 
 ## Docker
 
+### Build an image
+
 To build a Docker image `httpd-config-test` and run a container `apache-test` based on it, you can do:
 
 ```
 curl -fsSL https://raw.githubusercontent.com/vvvggg/httpd-config/master/docker/Dockerfile > /tmp/Dockerfile
 docker build --no-cache=true -t httpd-config-test /tmp/
-docker run -d --name apache-test -p 80:80 -p 443:443 httpd-config-test
-curl -ksSL localhost
 ```
 
+### Run the image
+
+To run the image has being built in a container, run:
+
+```
+docker run -dit -p 80:80 -p 443:443 httpd-config-test
+```
+
+Or you can get and run the container from the image got at [Docker Hub Registry](https://hub.docker.com/r/veguss/httpd-config/):
+
+```
+docker run -dit -p 80:80 -p 443:443 veguss/httpd-config
+```
+
+### Check the container
+
+Finally, check the container running ok and the result:
+
+```
+docker ps
+curl -kfsSL localhost
+```
 
 ## Tests
 
