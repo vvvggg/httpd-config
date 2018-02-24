@@ -1,4 +1,4 @@
-# vg.'s httpd-config
+# vg.'s httpd-config [![Build Status](https://travis-ci.org/vvvggg/httpd-config.svg?branch=master)](https://travis-ci.org/vvvggg/httpd-config)
 Modular Apache httpd configuration.
 
 Created especially for quick and pre-configured Apache deployment across Linux/FreeBSD. Pre-configuration is picked as basic as possible, however with common best practices in mind.
