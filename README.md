@@ -16,7 +16,7 @@ By default `deploy/deploy.sh` automatically backups the previous configuration d
 
 ### SSL certificates
 
-**IMPORTANT**: By default `deploy/deploy.sh` generates a PLAIN private key and a 'blank' 3-year self-signed X.509 SSL certificate at `/etc/ssl`, so if you'd like to don't this, update `deploy/deploy.sh` at the step 2 below accordingly.
+**IMPORTANT**: By default `deploy/deploy.sh` generates a PLAIN private key and a 'blank' 3-year self-signed X.509 SSL certificate at `/etc/ssl`, so if you'd like to don't do this, update `deploy/deploy.sh` at the step 2 below accordingly.
 
 ### Deployment procedure
 
@@ -26,11 +26,11 @@ By default `deploy/deploy.sh` automatically backups the previous configuration d
   4. Place at `$document_root` whatever you want
   5. Enjoy or rise a GitHub issue
 
-Main configuration parameters (aka constants) are described at `conf/httpd.conf` and `deploy/deploy.sh`.
+Main configuration parameters (aka constants) are described in `conf/httpd.conf` and `deploy/deploy.sh`.
 
 ### `DocumentRoot` contents
 
-By default `deploy/deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, EVERYTHING there can be easily removed or changed if you like to.
+By default `deploy/deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, so EVERYTHING there can be easily removed or changed if you'd like to.
 
 
 ## Docker
