@@ -30,7 +30,7 @@ Main configuration parameters (aka constants) are described in `conf/httpd.conf`
 
 ### `DocumentRoot` contents
 
-By default `deploy/deploy.sh`/tests generate (and leave) files into `DocumentRoot` directory, so EVERYTHING there can be easily removed or changed if you'd like to.
+By default `deploy/deploy.sh` and the tests generate (and leave) files into `DocumentRoot` directory, so EVERYTHING there can be easily removed or changed up to you.
 
 
 ## Docker
@@ -46,13 +46,13 @@ docker build --no-cache=true -t httpd-config-test /tmp/
 
 ### Run the image
 
-To run the image has being built in a container, run:
+To run the image has being built in a container:
 
 ```
 docker run -dit -p 80:80 -p 443:443 httpd-config-test
 ```
 
-Or you can get and run the container from the image got at [Docker Hub Registry](https://hub.docker.com/r/veguss/httpd-config/):
+Or you can get and run the container from the image at [Docker Hub Registry](https://hub.docker.com/r/veguss/httpd-config/):
 
 ```
 docker run -dit -p 80:80 -p 443:443 veguss/httpd-config
