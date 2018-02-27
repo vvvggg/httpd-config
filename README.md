@@ -23,8 +23,8 @@ By default `deploy/deploy.sh` automatically backups the previous configuration d
   1. Download deployment script: `curl -fsSL https://raw.githubusercontent.com/vvvggg/httpd-config/master/deploy/deploy.sh > /tmp/deploy.sh`
   2. Update `/tmp/deploy.sh` Configuration defaults up to your needs: `domain_name`, `server_admin`, `document_root`, maybe `ssl_*` as well.
   3. Run `sudo bash /tmp/deploy.sh`
-  4. Place at `$document_root` whatever you want
-  5. Enjoy or rise a GitHub issue
+  4. Place at `$document_root` whatever you want to
+  5. Enjoy or raise a GitHub issue
 
 Main configuration parameters (aka constants) are described in `conf/httpd.conf` and `deploy/deploy.sh`.
 
